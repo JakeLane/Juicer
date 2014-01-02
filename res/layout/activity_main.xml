@@ -128,6 +128,19 @@
                     android:layout_height="wrap_content"
                     android:text="@string/videoCheckbox" />
             </TableRow>
+           <TableRow
+                android:id="@+id/tableRow4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <CheckBox
+                    android:id="@+id/checkBoxWifiAP"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="onCheckboxClicked"
+                    android:text="@string/wifiAPCheckbox" />
+
+            </TableRow>
         </TableLayout>
     </ScrollView>
 

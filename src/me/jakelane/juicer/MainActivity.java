@@ -1,7 +1,6 @@
 package me.jakelane.juicer;
 
-import java.util.TimerTask;
-
+import me.jakelane.juicer.wifihotspotutils.WifiApManager;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.bluetooth.BluetoothAdapter;
@@ -30,6 +29,7 @@ import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.Chronometer;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 import android.widget.VideoView;
@@ -44,7 +44,8 @@ public class MainActivity extends Activity {
 	private BluetoothAdapter mBluetoothAdapter;
 	private LocationManager localLocationManager;
 	private LocationListener listenerLocationManager;
-
+	private WifiApManager wifiApManager;
+	private boolean bluetoothDisableOnFinish;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +78,10 @@ public class MainActivity extends Activity {
 		});
 		// Battery %
 		registerReceiver(mBatInfoReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+		// WifiApManger
+		wifiApManager = new WifiApManager(this);
+		// Bluetooth
+		mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 	}
 
 	@Override
@@ -155,7 +160,6 @@ public class MainActivity extends Activity {
 			CheckBox checkboxBluetooth = (CheckBox) findViewById(R.id.checkBoxBluetooth);
 			checkboxBluetooth.setEnabled(false);
 			if (checkboxBluetooth.isChecked()) {
-				mBluetoothAdapter.enable();
 				mBluetoothAdapter.startDiscovery();
 			}
 			// Vibrate
@@ -177,6 +181,13 @@ public class MainActivity extends Activity {
 				cameraService.setParameters(p);
 				cameraService.startPreview();
 			}
+			// WifiAP
+			CheckBox checkboxWifiAP = (CheckBox) findViewById(R.id.checkBoxWifiAP);
+			checkboxWifiAP.setEnabled(false);
+			if (checkboxWifiAP.isChecked()) {
+				wifiApManager.setWifiApEnabled(null, true);
+				// wifiApManager.getWifiApState();
+			}
 		} else {
 			// Stop the animation
 			logoAnimation.stopFlipping();
@@ -195,7 +206,6 @@ public class MainActivity extends Activity {
 			// Brightness
 			CheckBox checkboxBrightness = (CheckBox) findViewById(R.id.checkBoxBrightness);
 			checkboxBrightness.setEnabled(true);
-			// Reset brightness
 			WindowManager.LayoutParams lp = getWindow().getAttributes();
 			lp.screenBrightness = -1f;
 			getWindow().setAttributes(lp);
@@ -207,7 +217,9 @@ public class MainActivity extends Activity {
 			// Bluetooth
 			CheckBox checkboxBluetooth = (CheckBox) findViewById(R.id.checkBoxBluetooth);
 			checkboxBluetooth.setEnabled(true);
-			mBluetoothAdapter.cancelDiscovery();
+			if (mBluetoothAdapter != null) {
+				mBluetoothAdapter.cancelDiscovery();
+			}
 			// Vibrate
 			CheckBox checkboxVibrate = (CheckBox) findViewById(R.id.checkBoxVibrate);
 			checkboxVibrate.setEnabled(true);
@@ -222,6 +234,12 @@ public class MainActivity extends Activity {
 				cameraService.stopPreview();
 				cameraService.release();
 				cameraService = null;
+			}
+			// WifiAP
+			CheckBox checkboxWifiAP = (CheckBox) findViewById(R.id.checkBoxWifiAP);
+			checkboxWifiAP.setEnabled(true);
+			if (checkboxWifiAP.isChecked()) {
+				wifiApManager.setWifiApEnabled(null, false);
 			}
 		}
 	}
@@ -261,11 +279,33 @@ public class MainActivity extends Activity {
 				}
 				break;
 			case R.id.checkBoxBluetooth:
-				mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 				if (checked) {
 					if (mBluetoothAdapter == null) {
 						new AlertDialog.Builder(this).setTitle(R.string.warning).setMessage(R.string.noBluetooth).setPositiveButton(
 								android.R.string.yes, new DialogInterface.OnClickListener() {
+									public void onClick(DialogInterface dialog, int which) {
+										((CheckBox) view).setChecked(false);
+									}
+								}).show();
+					} else if (!mBluetoothAdapter.isEnabled()) {
+						// Create the view for the checkbox
+						final CheckBox checkBox = new CheckBox(this);
+						checkBox.setText(R.string.bluetoothDisableCheckbox);
+						LinearLayout linearLayout = new LinearLayout(this);
+						linearLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+								LinearLayout.LayoutParams.MATCH_PARENT));
+						linearLayout.setOrientation(1);
+						linearLayout.addView(checkBox);
+						// Create the dialog with the view
+						new AlertDialog.Builder(this).setView(linearLayout).setTitle(R.string.warning).setMessage(R.string.bluetoothNotEnabled)
+								.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+									public void onClick(DialogInterface dialog, int which) {
+										mBluetoothAdapter.enable();
+										if (checkBox.isChecked()) {
+											bluetoothDisableOnFinish = true;
+										}
+									}
+								}).setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
 									public void onClick(DialogInterface dialog, int which) {
 										((CheckBox) view).setChecked(false);
 									}
@@ -313,19 +353,7 @@ public class MainActivity extends Activity {
 		new AlertDialog.Builder(this).setMessage(R.string.backCloseButton).setPositiveButton(android.R.string.yes,
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
-						// Kill LED if still on
-						if (cameraService != null) {
-							Parameters p = cameraService.getParameters();
-							p.setFlashMode(Parameters.FLASH_MODE_OFF);
-							cameraService.setParameters(p);
-							cameraService.stopPreview();
-							cameraService.release();
-							cameraService = null;
-						}
-						// Kill the Vibrate service (just in case)
-						if (vibrateService != null) {
-							vibrateService.cancel();
-						}
+						// Kill rest
 						finish();
 					}
 				}).setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
@@ -333,15 +361,6 @@ public class MainActivity extends Activity {
 				return;
 			}
 		}).show();
-	}
-
-	public class bluetoothTask extends TimerTask {
-		// Bluetooth task
-		@Override
-		public void run() {
-			// TODO Auto-generated method stub
-
-		}
 	}
 
 	// Battery Indicator
@@ -367,5 +386,33 @@ public class MainActivity extends Activity {
 		logoVideo.start();
 		logoVideo.resume();
 		super.onResume();
+	}
+
+	protected void onDestroy() {
+		// Kill LED if still on
+		if (cameraService != null) {
+			Parameters p = cameraService.getParameters();
+			p.setFlashMode(Parameters.FLASH_MODE_OFF);
+			cameraService.setParameters(p);
+			cameraService.stopPreview();
+			cameraService.release();
+			cameraService = null;
+		}
+		// Kill the Vibrate service (just in case)
+		if (vibrateService != null) {
+			vibrateService.cancel();
+		}
+		// Disable bluetooth if boolean and stuff
+		if (mBluetoothAdapter.isEnabled() && bluetoothDisableOnFinish) {
+			mBluetoothAdapter.disable();
+		}
+		// Disable the hotspot
+		wifiApManager.setWifiApEnabled(null, false);
+		// Kill video
+		logoVideo.stopPlayback();
+		logoVideo = null;
+		// Unregister battery reciever
+		unregisterReceiver(mBatInfoReceiver);
+		super.onDestroy();
 	}
 }

@@ -25,5 +25,8 @@
     <string name="gpsOff">Your GPS seems to be disabled, do you want to enable it?</string>
     <string name="batteryPercent">Can\'t get Battery percentage</string>
     <string name="noBluetooth">Your device does not appear to have Bluetooth.</string>
+    <string name="wifiAPCheckbox">WiFi Hotspot</string>
+    <string name="bluetoothNotEnabled">Bluetooth is not enabled. Do you wish to enable it?</string>
+    <string name="bluetoothDisableCheckbox">Disable on exit?</string>
 
 </resources>
