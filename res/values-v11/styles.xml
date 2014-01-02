@@ -1,0 +1,7 @@
+<resources>
+
+    <style name="JuicerTheme" parent="@android:style/Theme.Holo.Light">
+        <!-- Any customizations for your app running on 3.0+ devices here -->
+    </style>
+
+</resources>

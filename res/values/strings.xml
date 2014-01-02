@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Juicer</string>
+    <string name="turnOnDrain">Pour the juice</string>
+    <string name="turnOffDrain">Stop pouring</string>
+    <string name="logoYellow">Yellow logo (main)</string>
+    <string name="logoOrange">Static Logo</string>
+    <string name="checkboxGPS">GPS</string>
+    <string name="checkboxBluetooth">Bluetooth</string>
+    <string name="checkboxBrightness">Brightness</string>
+    <string name="vibrateCheckbox">Vibrate</string>
+    <string name="actionAbout">About</string>
+    <string name="title_activity_about">About</string>
+    <string name="aboutMain1"><![CDATA[<p><b>Juicer</b> is an app dedicated to draining your devices battery in the most efficient way possible. Modern batteries have calibration features which tell the device how much energy is left in the battery. Overtime, if a device is kept at a high level of charge; inaccuracies can occur. This can be solved by discharging the battery to recalibrate it. You can read more about this <a href="http://batteryuniversity.com/learn/article/how_to_prolong_lithium_based_batteries">here</a>.</p><p>I personally recommend discharging your battery to around 40-50 percent every few of months to keep the calibration accurate. <b>Discharging to almost empty is not good practice</b> since it will wear out quicker.</p>]]></string>
+    <string name="flashCheckbox">LED (Camera flash)</string>
+    <string name="backCloseButton">Close Juicer? (Press the Home button to run the device in the background</string>
+    <string name="warning">Warning</string>
+    <string name="noFlashWarning">There appears to be no flash on your device. Enable anyway (this may cause the app to crash)?</string>
+    <string name="noGPSWarning">There appears to be no GPS on your device. Enable anyway (this may cause the app to crash)?</string>
+    <string name="vibrateWarning">Having Vibrate on for a long period of time can wear out the motor (and also can be very annoying)! Are you sure you wish to enable this?</string>
+    <string name="chargingWarning">Your device appears to be charging. You might want to unplug your device!</string>
+    <string name="emptyChrono">0:00</string>
+    <string name="videoCheckbox">Video</string>
+    <string name="gpsOff">Your GPS seems to be disabled, do you want to enable it?</string>
+    <string name="batteryPercent">Can\'t get Battery percentage</string>
+    <string name="noBluetooth">Your device does not appear to have Bluetooth.</string>
+
+</resources>

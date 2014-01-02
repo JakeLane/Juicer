@@ -1,0 +1,7 @@
+<resources>
+
+    <style name="JuicerTheme" parent="@android:style/Theme.Light">
+        <!-- Any customizations for your app running on pre-3.0 devices here -->
+    </style>
+
+</resources>

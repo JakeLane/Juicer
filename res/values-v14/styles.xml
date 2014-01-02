@@ -1,0 +1,7 @@
+<resources>
+
+    <style name="JuicerTheme" parent="@android:style/Theme.DeviceDefault.Light">
+        <!-- Any customizations for your app running on 4.0+ devices here -->
+    </style>
+
+</resources>
