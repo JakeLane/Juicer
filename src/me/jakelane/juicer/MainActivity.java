@@ -315,7 +315,9 @@ public class MainActivity extends Activity {
 				break;
 			case R.id.checkBoxGPS:
 				if (checked) {
-					if (!getPackageManager().hasSystemFeature(PackageManager.FEATURE_LOCATION_GPS)) {
+					LocationManager service = (LocationManager) getSystemService(LOCATION_SERVICE);
+					boolean enabled = service.isProviderEnabled(LocationManager.GPS_PROVIDER);
+					if (!enabled) {
 						new AlertDialog.Builder(this).setTitle(R.string.warning).setMessage(R.string.noGPSWarning).setPositiveButton(
 								android.R.string.yes, new DialogInterface.OnClickListener() {
 									public void onClick(DialogInterface dialog, int which) {
@@ -329,8 +331,7 @@ public class MainActivity extends Activity {
 						}).show();
 					}
 					final LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-					if (getPackageManager().hasSystemFeature(PackageManager.FEATURE_LOCATION_GPS)
-							&& !manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+					if (enabled && !manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
 						new AlertDialog.Builder(this).setTitle(R.string.warning).setMessage(R.string.gpsOff).setPositiveButton(android.R.string.yes,
 								new DialogInterface.OnClickListener() {
 									public void onClick(DialogInterface dialog, int which) {
