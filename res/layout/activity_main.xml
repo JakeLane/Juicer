@@ -64,11 +64,14 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/toggleDrain" >
+        android:layout_below="@+id/toggleDrain"
+        android:layout_centerHorizontal="true" >
 
         <TableLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:stretchColumns="*" >
 
             <TableRow
                 android:id="@+id/tableRow1"
@@ -79,6 +82,7 @@
                     android:id="@+id/checkBoxBluetooth"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:onClick="onCheckboxClicked"
                     android:text="@string/checkboxBluetooth" />
 
@@ -86,6 +90,7 @@
                     android:id="@+id/checkBoxBrightness"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:onClick="onCheckboxClicked"
                     android:text="@string/checkboxBrightness" />
             </TableRow>
@@ -99,6 +104,7 @@
                     android:id="@+id/checkBoxVibrate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:onClick="onCheckboxClicked"
                     android:text="@string/vibrateCheckbox" />
 
@@ -106,6 +112,7 @@
                     android:id="@+id/checkBoxGPS"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:onClick="onCheckboxClicked"
                     android:text="@string/checkboxGPS" />
             </TableRow>
@@ -119,6 +126,7 @@
                     android:id="@+id/checkBoxLED"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:onClick="onCheckboxClicked"
                     android:text="@string/flashCheckbox" />
 
@@ -126,9 +134,11 @@
                     android:id="@+id/checkBoxVideo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:text="@string/videoCheckbox" />
             </TableRow>
-           <TableRow
+
+            <TableRow
                 android:id="@+id/tableRow4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" >
@@ -137,9 +147,9 @@
                     android:id="@+id/checkBoxWifiAP"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:onClick="onCheckboxClicked"
                     android:text="@string/wifiAPCheckbox" />
-
             </TableRow>
         </TableLayout>
     </ScrollView>
