@@ -412,7 +412,7 @@ public class MainActivity extends Activity {
 		// Kill video
 		logoVideo.stopPlayback();
 		logoVideo = null;
-		// Unregister battery reciever
+		// Unregister battery receiver
 		unregisterReceiver(mBatInfoReceiver);
 		super.onDestroy();
 	}
