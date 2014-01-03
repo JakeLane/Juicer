@@ -252,7 +252,7 @@ public class MainActivity extends Activity {
 		switch (view.getId()) {
 			case R.id.checkBoxVibrate:
 				if (checked) {
-					new AlertDialog.Builder(this).setTitle(R.string.warning).setMessage(R.string.vibrateWarning).setPositiveButton(
+					new AlertDialog.Builder(this).setTitle(R.string.warning).setMessage(R.string.vibrateWarning).setCancelable(false).setPositiveButton(
 							android.R.string.yes, new DialogInterface.OnClickListener() {
 								public void onClick(DialogInterface dialog, int which) {
 									return;
@@ -266,7 +266,7 @@ public class MainActivity extends Activity {
 				break;
 			case R.id.checkBoxLED:
 				if (checked && !getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH)) {
-					new AlertDialog.Builder(this).setTitle(R.string.warning).setMessage(R.string.noFlashWarning).setPositiveButton(
+					new AlertDialog.Builder(this).setTitle(R.string.warning).setMessage(R.string.noFlashWarning).setCancelable(false).setPositiveButton(
 							android.R.string.yes, new DialogInterface.OnClickListener() {
 								public void onClick(DialogInterface dialog, int which) {
 									return;
@@ -297,7 +297,7 @@ public class MainActivity extends Activity {
 						linearLayout.setOrientation(1);
 						linearLayout.addView(checkBox);
 						// Create the dialog with the view
-						new AlertDialog.Builder(this).setView(linearLayout).setTitle(R.string.warning).setMessage(R.string.bluetoothNotEnabled)
+						new AlertDialog.Builder(this).setView(linearLayout).setTitle(R.string.warning).setCancelable(false).setMessage(R.string.bluetoothNotEnabled)
 								.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 									public void onClick(DialogInterface dialog, int which) {
 										mBluetoothAdapter.enable();
@@ -318,7 +318,7 @@ public class MainActivity extends Activity {
 					LocationManager service = (LocationManager) getSystemService(LOCATION_SERVICE);
 					boolean enabled = service.isProviderEnabled(LocationManager.GPS_PROVIDER);
 					if (!enabled) {
-						new AlertDialog.Builder(this).setTitle(R.string.warning).setMessage(R.string.noGPSWarning).setPositiveButton(
+						new AlertDialog.Builder(this).setTitle(R.string.warning).setMessage(R.string.noGPSWarning).setCancelable(false).setPositiveButton(
 								android.R.string.yes, new DialogInterface.OnClickListener() {
 									public void onClick(DialogInterface dialog, int which) {
 										return;
@@ -332,7 +332,7 @@ public class MainActivity extends Activity {
 					}
 					final LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 					if (enabled && !manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-						new AlertDialog.Builder(this).setTitle(R.string.warning).setMessage(R.string.gpsOff).setPositiveButton(android.R.string.yes,
+						new AlertDialog.Builder(this).setTitle(R.string.warning).setMessage(R.string.gpsOff).setCancelable(false).setPositiveButton(android.R.string.yes,
 								new DialogInterface.OnClickListener() {
 									public void onClick(DialogInterface dialog, int which) {
 										startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
@@ -351,7 +351,7 @@ public class MainActivity extends Activity {
 
 	// Back Button press
 	public void onBackPressed() {
-		new AlertDialog.Builder(this).setMessage(R.string.backCloseButton).setPositiveButton(android.R.string.yes,
+		new AlertDialog.Builder(this).setMessage(R.string.backCloseButton).setCancelable(false).setPositiveButton(android.R.string.yes,
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
 						// Kill rest
