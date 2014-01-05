@@ -15,7 +15,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:contentDescription="@string/logoOrange"
-        android:src="@drawable/pitcheryellow" />
+        android:src="@drawable/pitcher_yellow" />
 
     <TextView
         android:id="@+id/textView1"
