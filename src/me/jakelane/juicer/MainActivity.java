@@ -252,30 +252,30 @@ public class MainActivity extends Activity {
 		switch (view.getId()) {
 			case R.id.checkBoxVibrate:
 				if (checked) {
-					new AlertDialog.Builder(this).setTitle(R.string.warning).setMessage(R.string.vibrateWarning).setCancelable(false).setPositiveButton(
-							android.R.string.yes, new DialogInterface.OnClickListener() {
+					new AlertDialog.Builder(this).setTitle(R.string.warning).setMessage(R.string.vibrateWarning).setCancelable(false)
+							.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 								public void onClick(DialogInterface dialog, int which) {
 									return;
 								}
 							}).setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-						public void onClick(DialogInterface dialog, int which) {
-							((CheckBox) view).setChecked(false);
-						}
-					}).show();
+								public void onClick(DialogInterface dialog, int which) {
+									((CheckBox) view).setChecked(false);
+								}
+							}).show();
 				}
 				break;
 			case R.id.checkBoxLED:
 				if (checked && !getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH)) {
-					new AlertDialog.Builder(this).setTitle(R.string.warning).setMessage(R.string.noFlashWarning).setCancelable(false).setPositiveButton(
-							android.R.string.yes, new DialogInterface.OnClickListener() {
+					new AlertDialog.Builder(this).setTitle(R.string.warning).setMessage(R.string.noFlashWarning).setCancelable(false)
+							.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 								public void onClick(DialogInterface dialog, int which) {
 									return;
 								}
 							}).setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-						public void onClick(DialogInterface dialog, int which) {
-							((CheckBox) view).setChecked(false);
-						}
-					}).show();
+								public void onClick(DialogInterface dialog, int which) {
+									((CheckBox) view).setChecked(false);
+								}
+							}).show();
 				}
 				break;
 			case R.id.checkBoxBluetooth:
@@ -297,19 +297,19 @@ public class MainActivity extends Activity {
 						linearLayout.setOrientation(1);
 						linearLayout.addView(checkBox);
 						// Create the dialog with the view
-						new AlertDialog.Builder(this).setView(linearLayout).setTitle(R.string.warning).setCancelable(false).setMessage(R.string.bluetoothNotEnabled)
-								.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-									public void onClick(DialogInterface dialog, int which) {
-										mBluetoothAdapter.enable();
-										if (checkBox.isChecked()) {
-											bluetoothDisableOnFinish = true;
-										}
-									}
-								}).setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-									public void onClick(DialogInterface dialog, int which) {
-										((CheckBox) view).setChecked(false);
-									}
-								}).show();
+						new AlertDialog.Builder(this).setView(linearLayout).setTitle(R.string.warning).setCancelable(false).setMessage(
+								R.string.bluetoothNotEnabled).setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int which) {
+								mBluetoothAdapter.enable();
+								if (checkBox.isChecked()) {
+									bluetoothDisableOnFinish = true;
+								}
+							}
+						}).setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int which) {
+								((CheckBox) view).setChecked(false);
+							}
+						}).show();
 					}
 				}
 				break;
@@ -318,22 +318,22 @@ public class MainActivity extends Activity {
 					LocationManager service = (LocationManager) getSystemService(LOCATION_SERVICE);
 					boolean enabled = service.isProviderEnabled(LocationManager.GPS_PROVIDER);
 					if (!enabled) {
-						new AlertDialog.Builder(this).setTitle(R.string.warning).setMessage(R.string.noGPSWarning).setCancelable(false).setPositiveButton(
-								android.R.string.yes, new DialogInterface.OnClickListener() {
+						new AlertDialog.Builder(this).setTitle(R.string.warning).setMessage(R.string.noGPSWarning).setCancelable(false)
+								.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 									public void onClick(DialogInterface dialog, int which) {
 										return;
 									}
 								}).setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog, int which) {
-								((CheckBox) view).setChecked(false);
-								dialog.cancel();
-							}
-						}).show();
+									public void onClick(DialogInterface dialog, int which) {
+										((CheckBox) view).setChecked(false);
+										dialog.cancel();
+									}
+								}).show();
 					}
 					final LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 					if (enabled && !manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-						new AlertDialog.Builder(this).setTitle(R.string.warning).setMessage(R.string.gpsOff).setCancelable(false).setPositiveButton(android.R.string.yes,
-								new DialogInterface.OnClickListener() {
+						new AlertDialog.Builder(this).setTitle(R.string.warning).setMessage(R.string.gpsOff).setCancelable(false).setPositiveButton(
+								android.R.string.yes, new DialogInterface.OnClickListener() {
 									public void onClick(DialogInterface dialog, int which) {
 										startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
 									}

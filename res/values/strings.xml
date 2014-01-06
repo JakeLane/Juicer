@@ -19,7 +19,6 @@
     <string name="noFlashWarning">There appears to be no flash on your device. Enable anyway (this may cause the app to crash)?</string>
     <string name="noGPSWarning">There appears to be no GPS on your device. Enable anyway (this may cause the app to crash)?</string>
     <string name="vibrateWarning">Having Vibrate on for a long period of time can wear out the motor (and also can be very annoying)! Are you sure you wish to enable this?</string>
-    <string name="chargingWarning">Your device appears to be charging. You might want to unplug your device!</string>
     <string name="emptyChrono">0:00</string>
     <string name="videoCheckbox">Video</string>
     <string name="gpsOff">Your GPS seems to be disabled, do you want to enable it?</string>
