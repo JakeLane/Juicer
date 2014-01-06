@@ -247,7 +247,6 @@ public class MainActivity extends Activity {
 	public void onCheckboxClicked(final View view) {
 		// Is the view now checked?
 		boolean checked = ((CheckBox) view).isChecked();
-
 		// Check which check box was clicked
 		switch (view.getId()) {
 			case R.id.checkBoxVibrate:
