@@ -1,0 +1,1 @@
+Juicer is an app I developed to enhance my skills with Java and begin learning Android. It is an app that drains an android device's battery (which can calibrate the battery).
